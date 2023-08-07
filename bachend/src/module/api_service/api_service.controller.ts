@@ -6,7 +6,7 @@ import { ChatGptDTO } from './dto';
 import { AppError } from 'src/common/constant/errors';
 @Controller('api-service')
 export class ApiServiceController {
-    constructor(private readonly apiServiceService: ApiServiceService) { }
+    constructor(private readonly apiServiceService: ApiServiceService): Promise<ChatGptResponse> { }
     @ApiTags('Service Api')
     @ApiResponse({ status: 200 })
     @Post()

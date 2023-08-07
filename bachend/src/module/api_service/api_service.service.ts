@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { ChatGptDTO } from './dto';
 import { Configuration, OpenAIApi } from "openai";
 import { ConfigService } from '@nestjs/config';
+import { ChatGptResponse } from './response'
 @Injectable()
 export class ApiServiceService {
-    constructor(private readonly configService: ConfigService) { }
+    constructor(private readonly configService: ConfigService): Promise<ChatGptResponse> { }
     async chatGptChange(chatGptDTO: ChatGptDTO) {
         let chatGptMessage = []
         if (chatGptDTO.status == 'new') {
