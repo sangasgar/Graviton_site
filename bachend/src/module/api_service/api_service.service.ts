@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { ChatGptDTO } from './dto';
 import { Configuration, OpenAIApi } from "openai";
 import { ConfigService } from '@nestjs/config';
-import { ChatGptResponse } from './response'
+import { ChatGptResponse } from './response';
+
 @Injectable()
 export class ApiServiceService {
-    constructor(private readonly configService: ConfigService): Promise<ChatGptResponse> { }
-    async chatGptChange(chatGptDTO: ChatGptDTO) {
+    constructor(private readonly configService: ConfigService) { }
+    async chatGptChange(chatGptDTO: ChatGptDTO): Promise<ChatGptResponse> {
         let chatGptMessage = []
         if (chatGptDTO.status == 'new') {
             chatGptMessage = [{ "role": "user", "content": chatGptDTO.message }]
@@ -23,7 +24,6 @@ export class ApiServiceService {
             model: "gpt-3.5-turbo",
             messages: chatGptMessage,
         });
-        console.log(completion)
         return { message: completion.data.choices[0].message }
     }
 }

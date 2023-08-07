@@ -5,6 +5,7 @@ import { MailService } from './mail.service';
 import { join } from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as path from 'path';
+import { MailController } from './mail.controller';
 @Module({
   imports: [
     MailerModule.forRootAsync({
@@ -34,6 +35,7 @@ import * as path from 'path';
       inject: [ConfigService],
     }),
   ],
+  controllers: [MailController],
   providers: [MailService],
   exports: [MailService],
 })
