@@ -13,9 +13,9 @@ input.addEventListener('input', (e) => {
 
 chatForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  failMsg.style.display = 'none';
 
   try {
+    failMsg.style.display = 'none';
     submitBtn.style.display = 'none';
     loader.style.display = 'inline-block';
     const newUserMsg = renderChatMsg('user', userInput);
@@ -25,6 +25,7 @@ chatForm.addEventListener('submit', async (e) => {
       status: isFirstRequest ? 'new' : 'old',
       message: userInput,
     };
+
     const response = await fetch('https://gravitino.ru:5000/api-service', {
       method: 'POST',
       headers: {
@@ -44,6 +45,8 @@ chatForm.addEventListener('submit', async (e) => {
   } catch (error) {
     console.error();
     failMsg.style.display = 'block';
+  } finally {
+    input.value = ''
     loader.style.display = 'none';
     submitBtn.style.display = 'block';
   }
