@@ -38,8 +38,8 @@ chatForm.addEventListener('submit', async (e) => {
       throw new Error('Network error');
     }
 
-    const { content } = await response.json();
-    const chatAnswer = renderChatMsg('chat', content);
+    const { message } = await response.json();
+    const chatAnswer = renderChatMsg('chat', message.content);
     chatContainer.appendChild(chatAnswer);
     isFirstRequest = false;
   } catch (error) {
