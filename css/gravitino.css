@@ -761,6 +761,9 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
+  display: none;
+  margin-top: 20px;
+  font-weight: 600;
 }
 
 .m-contact-icon-wrapper {
@@ -782,7 +785,8 @@
   position: relative;
 }
 
-.m-contact-submit-button {
+.m-contact-submit-button,
+.feedback-submit-button {
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   color: #fff;
@@ -802,7 +806,8 @@
   display: flex;
 }
 
-.m-contact-submit-button:hover {
+.m-contact-submit-button:hover,
+.feedback-submit-button:hover {
   color: #00c1a0;
   background-color: rgba(0, 193, 160, 0);
   border: 2px solid #00c1a0;
@@ -819,6 +824,9 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
+  display: none;
+  margin-top: 20px;
+  font-weight: 600;
 }
 
 .m-contact-header {

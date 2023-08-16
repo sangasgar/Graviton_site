@@ -96,7 +96,6 @@ function renderChatMsg(host, text) {
 
     textWrapper.innerHTML = template;
   } else {
-    const textWrapper = document.createElement('div');
     textWrapper.className = 'f-chat-bubble-wrapper blue';
 
     const template = `
