@@ -8,7 +8,7 @@ export class MailService {
         await this.mailerService.sendMail({
             to: 'info@tobuyestate.com',
             // from: '"Support Team" <support@example.com>', // override default from
-            subject: 'Заявка с сайта на подбор недвижимости',
+            subject: 'Заявка с сайта gravitino.ru',
             template: './leads', // `.hbs` extension is appended automatically
             context: {
                 // ✏️ filling curly brackets with content
