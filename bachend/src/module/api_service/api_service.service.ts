@@ -22,7 +22,6 @@ export class ApiServiceService {
             apiKey: this.configService.get('chat_gpt_api_key'),
         });
         const openai = new OpenAIApi(configuration);
-        console.log(Storage.getArrayContext())
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: Storage.getArrayContext(),
