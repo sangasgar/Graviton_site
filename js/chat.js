@@ -46,7 +46,7 @@ chatForm.addEventListener('submit', async (e) => {
     console.error();
     failMsg.style.display = 'block';
   } finally {
-    input.value = ''
+    input.value = '';
     loader.style.display = 'none';
     submitBtn.style.display = 'block';
   }
@@ -96,7 +96,6 @@ function renderChatMsg(host, text) {
 
     textWrapper.innerHTML = template;
   } else {
-    const textWrapper = document.createElement('div');
     textWrapper.className = 'f-chat-bubble-wrapper blue';
 
     const template = `
