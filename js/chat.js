@@ -21,9 +21,12 @@ chatForm.addEventListener('submit', async (e) => {
     const newUserMsg = renderChatMsg('user', userInput);
     chatContainer.appendChild(newUserMsg);
 
+    const userId = localStorage.getItem('user_id');
+
     const data = {
       status: isFirstRequest ? 'new' : 'old',
       message: userInput,
+      user_id: userId || generateUserId(),
     };
 
     const response = await fetch('https://gravitino.ru:5000/api-service', {
@@ -97,6 +100,7 @@ function renderChatMsg(host, text) {
     textWrapper.innerHTML = template;
   } else {
     textWrapper.className = 'f-chat-bubble-wrapper blue';
+    const formattedText = text.replace(/\n/g, '<br>');
 
     const template = `
             <div
@@ -113,11 +117,20 @@ function renderChatMsg(host, text) {
             ></div>
             </div>
                 <div class="f-full-name-text">
-                ${text}
+                ${formattedText}
                 </div>`;
 
     textWrapper.innerHTML = template;
   }
 
   return textWrapper;
+}
+
+function generateUserId() {
+  const timestamp = new Date().getTime();
+  const randomId = Math.floor(Math.random() * 1000000);
+  const userId = `${timestamp}_${randomId}`;
+  localStorage.setItem('user_id', userId);
+
+  return userId;
 }
