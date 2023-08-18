@@ -8,4 +8,7 @@ export class ChatGptDTO {
     @ApiProperty()
     @IsString()
     message: string
+    @ApiProperty()
+    @IsString()
+    user_id: string
 }

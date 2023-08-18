@@ -9,13 +9,13 @@ import { Storage } from 'src/common/storage/storage';
 export class ApiServiceService {
     constructor(private readonly configService: ConfigService) { }
     async chatGptChange(chatGptDTO: ChatGptDTO): Promise<ChatGptResponse> {
-       
+
         if (chatGptDTO.status == 'new') {
-            Storage.setNewArray()
-            Storage.pullArray({ "role": "user", "content": chatGptDTO.message }) 
+            Storage.setNewArray(chatGptDTO.user_id)
+            Storage.pullArray(chatGptDTO.user_id, { "role": "user", "content": chatGptDTO.message })
         }
         if (chatGptDTO.status == 'old') {
-            Storage.pullArray({ "role": "user", "content": chatGptDTO.message }) 
+            Storage.pullArray(chatGptDTO.user_id, { "role": "user", "content": chatGptDTO.message })
         }
         const configuration = new Configuration({
             organization: this.configService.get('chat_gpt_organizathion_key'),
@@ -24,8 +24,8 @@ export class ApiServiceService {
         const openai = new OpenAIApi(configuration);
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: Storage.getArrayContext(),
+            messages: Storage.getArrayContext(chatGptDTO.user_id),
         });
-        return { message: completion.data.choices[0].message }
+        return { user_id: chatGptDTO.user_id, message: completion.data.choices[0].message }
     }
 }
