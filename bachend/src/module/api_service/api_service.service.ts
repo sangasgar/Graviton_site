@@ -15,7 +15,9 @@ export class ApiServiceService {
             Storage.pullArray(chatGptDTO.user_id, { "role": "user", "content": chatGptDTO.message })
         }
         if (chatGptDTO.status == 'old') {
-            Storage.pullArray(chatGptDTO.user_id, { "role": "user", "content": chatGptDTO.message })
+            const array = Storage.getArrayContext(chatGptDTO.user_id)
+            array.push({ "role": "user", "content": chatGptDTO.message })
+            Storage.pullArray(chatGptDTO.user_id, array)
         }
         const configuration = new Configuration({
             organization: this.configService.get('chat_gpt_organizathion_key'),
