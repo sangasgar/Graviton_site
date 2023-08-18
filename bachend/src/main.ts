@@ -5,12 +5,12 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 async function bootstrap() {
-  const httpsOptions = {
-    key: fs.readFileSync('../../../../../../../../etc/certs/admin/gravitino.ru_08-08-2023_11:14:30_letencrypt.key'),
-    cert: fs.readFileSync('../../../../../../../../etc/certs/admin/gravitino.ru_08-08-2023_11:14:30_letencrypt.crt_v2'),
-  };
+  // const httpsOptions = {
+  //   key: fs.readFileSync('../../../../../../../../etc/certs/admin/gravitino.ru_08-08-2023_11:14:30_letencrypt.key'),
+  //   cert: fs.readFileSync('../../../../../../../../etc/certs/admin/gravitino.ru_08-08-2023_11:14:30_letencrypt.crt_v2'),
+  // };
   const app = await NestFactory.create(AppModule, {
-    httpsOptions,
+    // httpsOptions,
   });
   app.enableCors({
     origin: [

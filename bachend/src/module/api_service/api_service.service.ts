@@ -12,21 +12,27 @@ export class ApiServiceService {
 
         if (chatGptDTO.status == 'new') {
             Storage.setNewArray(chatGptDTO.user_id)
-            Storage.pullArray(chatGptDTO.user_id, { "role": "user", "content": chatGptDTO.message })
+            Storage.pullArray(chatGptDTO.user_id, [{ "role": "user", "content": chatGptDTO.message }])
         }
         if (chatGptDTO.status == 'old') {
             const array = Storage.getArrayContext(chatGptDTO.user_id)
-            array.push({ "role": "user", "content": chatGptDTO.message })
-            Storage.pullArray(chatGptDTO.user_id, array)
+            if (array) {
+                array.push({ "role": "user", "content": chatGptDTO.message })
+                Storage.pullArray(chatGptDTO.user_id, array)
+            } else {
+                Storage.setNewArray(chatGptDTO.user_id)
+            }
         }
         const configuration = new Configuration({
             organization: this.configService.get('chat_gpt_organizathion_key'),
             apiKey: this.configService.get('chat_gpt_api_key'),
         });
         const openai = new OpenAIApi(configuration);
+        const context = Storage.getArrayContext(chatGptDTO.user_id)
+        console.log(context)
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: Storage.getArrayContext(chatGptDTO.user_id),
+            messages: context,
         });
         return { user_id: chatGptDTO.user_id, message: completion.data.choices[0].message }
     }
